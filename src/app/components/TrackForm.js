@@ -70,7 +70,7 @@ export default function NewTrack() {
 
   return (
    
-    <div className="max-w-4xl mx-auto p-6  bg-white shadow-lg rounded-lg mt-10">
+    <div className="w-100vw h-100vw  p-6  bg-white shadow-lg rounded-lg mt-10">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Track Details</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
