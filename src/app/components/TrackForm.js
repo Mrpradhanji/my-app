@@ -121,7 +121,7 @@ export default function NewTrack() {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select Track Type</option>
-              {/* Add your track types here */}
+              {/* Add Track Types As your need Sir and Same for every comments i marked for you*/}
             </select>
             {errors.trackType && <p className="text-red-500 text-sm mt-1">{errors.trackType._errors[0]}</p>}
           </div>
