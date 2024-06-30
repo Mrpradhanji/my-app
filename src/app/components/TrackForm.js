@@ -1,7 +1,7 @@
 // pages/new-track.js
 "use client";
 import { useState } from 'react';
-import { TrackSchema } from './TrackSchema';
+import { TrackSchema } from '../Schema/TrackSchema';
 
 export default function NewTrack() {
   const [primaryArtists, setPrimaryArtists] = useState(['']);
@@ -314,13 +314,14 @@ export default function NewTrack() {
             </div>
           ))}
         </div>
-
+        <div className='mt-6 text-center'>
         <button
           type="submit"
-          className="w-full py-3 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Submit
         </button>
+        </div>
       </form>
     </div>
   );

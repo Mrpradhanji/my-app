@@ -2,18 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: rgb(35, 47,62 );
-    
-    
-}
-
-/*
-body {
-    background-color: rgb(35, 47, 62);
-    background-image: url('path/to/your/image.jpg');
-    background-size: cover; 
-        background-position: center; 
-           background-repeat: no-repeat; 
-        }
-           */
