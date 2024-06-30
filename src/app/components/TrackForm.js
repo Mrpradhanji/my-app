@@ -1,30 +1,7 @@
 // pages/new-track.js
 "use client";
 import { useState } from 'react';
-import { z } from 'zod';
-
-const TrackSchema = z.object({
-  title: z.string().min(1, "Track title is required"),
-  category: z.string().min(1, "Track category is required"),
-  audioFile: z.any().refine((file) => file.size <= 134217728, "File size should be less than 128MB"),
-  callerTuneTime: z.string().regex(/^(\d{2}):(\d{2}):(\d{2})$/, "Invalid time format"),
-  trackType: z.string().min(1, "Track type is required"),
-  version: z.string().min(1, "Version is required"),
-  primaryArtists: z.array(z.string().min(1, "Artist name is required")),
-  producers: z.array(z.string().min(1, "Producer name is required")),
-  lyricists: z.array(z.object({
-    name: z.string().min(1, "Lyricist name is required"),
-    ipi: z.string().optional(),
-    iprs: z.enum(['Yes', 'No']),
-    role: z.string().min(1, "Role is required"),
-  })),
-  composers: z.array(z.object({
-    name: z.string().min(1, "Composer name is required"),
-    ipi: z.string().optional(),
-    iprs: z.enum(['Yes', 'No']),
-    role: z.string().min(1, "Role is required"),
-  })),
-});
+import { TrackSchema } from './TrackSchema';
 
 export default function NewTrack() {
   const [primaryArtists, setPrimaryArtists] = useState(['']);
@@ -70,12 +47,13 @@ export default function NewTrack() {
 
   return (
    
-    <div className="w-100vw h-100vw  p-6  bg-white shadow-lg rounded-lg mt-10">
+    <div className="w-100vw h-100vw  p-6  bg-white shadow-lg rounded-sm mt-10">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Track Details</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
             <label className="block text-sm font-medium mb-2 text-gray-700">Track Title</label>
+            <div className='relative'>
             <input
               name="title"
               type="text"
@@ -83,9 +61,11 @@ export default function NewTrack() {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title._errors[0]}</p>}
+            </div>
           </div>
-          <div>
+          <div className='flex flex-col'>
             <label className="block text-sm font-medium mb-2 text-gray-700">Track Category</label>
+            <div className='relative'>
             <select
               name="category"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -94,6 +74,7 @@ export default function NewTrack() {
               {/* Add your categories here */}
             </select>
             {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category._errors[0]}</p>}
+          </div>
           </div>
           <div>
             <label className="block text-sm font-medium mb-2 text-gray-700">Audio File (Max 128M)</label>
@@ -139,62 +120,68 @@ export default function NewTrack() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium mb-2 text-gray-700">Track Artist(s) - Primary</label>
-          {primaryArtists.map((artist, index) => (
-            <div key={index} className="flex items-center mb-3">
-              <input
-                type="text"
-                placeholder="Singer Name"
-                className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={artist}
-                onChange={(e) => {
-                  const newArtists = [...primaryArtists];
-                  newArtists[index] = e.target.value;
-                  setPrimaryArtists(newArtists);
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => handleAddArtist(setPrimaryArtists)}
-                className="ml-3 p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                +
-              </button>
-              {errors.primaryArtists && errors.primaryArtists[index] && (
-                <p className="text-red-500 text-sm mt-1">{errors.primaryArtists[index]._errors[0]}</p>
-              )}
-            </div>
-          ))}
-        </div>
+  <label className="block text-sm font-medium mb-2 text-gray-700">Track Artist(s) - Primary</label>
+  {primaryArtists.map((artist, index) => (
+    <div key={index} className="flex flex-col mb-3">
+      <div className="flex items-center">
+        <input
+          type="text"
+          placeholder="Singer Name"
+          className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={artist}
+          onChange={(e) => {
+            const newArtists = [...primaryArtists];
+            newArtists[index] = e.target.value;
+            setPrimaryArtists(newArtists);
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => handleAddArtist(setPrimaryArtists)}
+          className="ml-3 p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          +
+        </button>
+      </div>
+      {errors.primaryArtists && errors.primaryArtists[index] && (
+        <p className="text-red-500 text-sm mt-1">{errors.primaryArtists[index]._errors[0]}</p>
+      )}
+    </div>
+  ))}
+</div>
+
 
         <div className="mb-6">
-          <label className="block text-sm font-medium mb-2 text-gray-700">Track Artist(s) - Producer</label>
-          {producers.map((producer, index) => (
-            <div key={index} className="flex items-center mb-3">
+          <label className="block text-sm font-medium mb-2  text-gray-700">Track Artist(s) - Producer</label>
+            {producers.map((producer, index) => (
+            <div key={index} className="flex flex-col mb-3">
+              <div className="flex items-center">
               <input
-                type="text"
-                placeholder="Music Producer"
+                 type="text"
+                 placeholder="Music Producer"
                 className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={producer}
                 onChange={(e) => {
-                  const newProducers = [...producers];
-                  newProducers[index] = e.target.value;
-                  setProducers(newProducers);
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => handleAddArtist(setProducers)}
-                className="ml-3 p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                +
-              </button>
-              {errors.producers && errors.producers[index] && (
-                <p className="text-red-500 text-sm mt-1">{errors.producers[index]._errors[0]}</p>
-              )}
-            </div>
-          ))}
-        </div>
+                const newProducers = [...producers];
+                newProducers[index] = e.target.value;
+                setProducers(newProducers);
+              }}
+            />
+          <button
+          type="button"
+          onClick={() => handleAddArtist(setProducers)}
+          className="ml-3 p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          +
+        </button>
+      </div>
+      {errors.producers && errors.producers[index] && (
+        <p className="text-red-500 text-sm mt-1">{errors.producers[index]._errors[0]}</p>
+      )}
+    </div>
+  ))}
+</div>
+
 
         <div className="mb-6">
           <label className="block text-sm font-medium mb-2 text-gray-700">Lyricist(s)</label>
