@@ -8,7 +8,7 @@ export const albumSchema = z.object({
   genre: z.string().nonempty("Genre is required"),
   label: z.string().nonempty("Record label is required"),
   language: z.string().nonempty("Language is required"),
-  googleDriveLink: z.string().url("Must be a valid URL"),
+  //googleDriveLink: z.string().url("Must be a valid URL"),
   producer: z.string().nonempty("Producer name is required"),
   duration: z.string().nonempty("Duration is required"),
   artwork: z.any(),

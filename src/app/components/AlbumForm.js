@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import { albumSchema } from '../Schema/albumSchema';
-import GooglePicker from './GooglePicker';
 
 const AlbumForm = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +10,6 @@ const AlbumForm = () => {
     genre: '',
     label: '',
     language: '',
-    googleDriveLink: '',
     producer: '',
     duration: '',
     artwork: null,
@@ -26,10 +24,6 @@ const AlbumForm = () => {
 
   const handleFileChange = (e) => {
     setFormData({ ...formData, artwork: e.target.files[0] });
-  };
-
-  const handleGoogleSelect = (doc) => {
-    setFormData({ ...formData, googleDriveLink: doc.url });
   };
 
   const handleSubmit = (e) => {
@@ -123,16 +117,6 @@ const AlbumForm = () => {
             {errors.language && <p className="text-red-500 text-sm mt-1">{errors.language[0]}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Upload from Cloud</label>
-            <GooglePicker onSelect={handleGoogleSelect} />
-            {formData.googleDriveLink && (
-              <p className="text-sm mt-1 text-green-500">File selected from Google Drive.</p>
-            )}
-            {errors.googleDriveLink && (
-              <p className="text-red-500 text-sm mt-1">{errors.googleDriveLink[0]}</p>
-            )}
-          </div>
-          <div>
             <label className="block text-sm font-medium text-gray-700">Producer</label>
             <input
               type="text"
@@ -156,7 +140,7 @@ const AlbumForm = () => {
             {errors.duration && <p className="text-red-500 text-sm mt-1">{errors.duration[0]}</p>}
           </div>
           <div className="flex flex-col col-span-2">
-          <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700">
               Art Work (File Type: png, jpg | File Size: 300 x 300)
             </label>
             <div className="max-w-fit mt-1 flex items-center justify-between border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
@@ -186,4 +170,3 @@ const AlbumForm = () => {
 };
 
 export default AlbumForm;
-
