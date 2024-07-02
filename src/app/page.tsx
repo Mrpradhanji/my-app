@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main>
       <div >
-       
+       <NewTrack/>
         <AlbumForm/>
       </div>
     </main>     
