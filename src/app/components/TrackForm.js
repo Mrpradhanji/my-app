@@ -48,7 +48,7 @@ export default function NewTrack() {
   return (
    
     <div className="w-100vw h-100vw  p-6  bg-white shadow-lg rounded-sm mt-10">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Track Details</h1>
+      <h1 className="text-3xl font-bold mb-6 text-blue-600">Track Details</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
@@ -182,8 +182,8 @@ export default function NewTrack() {
   ))}
 </div>
 
-
-        <div className="mb-6">
+      <div className='flex space-x-10'>
+        <div className="mb-6 w-1/2">
           <label className="block text-sm font-medium mb-2 text-gray-700">Lyricist(s)</label>
           {lyricists.map((lyricist, index) => (
             <div key={index} className="mb-4 p-4 border rounded-lg shadow-sm">
@@ -249,7 +249,7 @@ export default function NewTrack() {
           ))}
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 w-1/2">
           <label className="block text-sm font-medium mb-2 text-gray-700">Composer(s)</label>
           {composers.map((composer, index) => (
             <div key={index} className="mb-4 p-4 border rounded-lg shadow-sm">
@@ -314,6 +314,7 @@ export default function NewTrack() {
             </div>
           ))}
         </div>
+      </div>  
         <div className='mt-6 text-center'>
         <button
           type="submit"
