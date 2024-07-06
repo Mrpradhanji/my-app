@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { albumSchema } from '../Schema/albumSchema';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 const AlbumForm = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -47,7 +48,7 @@ const AlbumForm = () => {
   return (
     <div className="w-full h-full p-6 bg-white shadow-lg rounded-sm mt-10">
       <form onSubmit={handleSubmit} className="w-full h-full overflow-auto">
-        <h1 className="text-3xl font-bold mb-8 text-center">Album Details</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center text-blue-600">Album Details</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-1 space-y-6">
             <div>
@@ -128,7 +129,9 @@ const AlbumForm = () => {
                 {formData.artwork ? (
                   <p className="text-sm text-green-500">File: {formData.artwork.name}</p>
                 ) : (
-                  <p className="text-sm text-gray-500">Drag & drop an image here, or click to select one</p>
+                  <p className="text-sm text-gray-500">
+                    <FontAwesomeIcon icon={faUpload} bounce size='3x' /> Drag & drop an image here, or click to select one
+                  </p>
                 )}
               </div>
               {errors.artwork && (
